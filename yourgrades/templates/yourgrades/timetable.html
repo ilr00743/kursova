@@ -6,7 +6,7 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="row justify-content-center">
-            <h4>TWÓJ PLAN LEKCJI</h4>
+            <h4>ТВІЙ РОЗКЛАД ЗАНЯТЬ</h4>
           </div>
           <br>
           <div class="row">
@@ -14,13 +14,13 @@
               <table class="table text-center">
                 <thead class="thead-dark">
                   <tr>
-                    <th scope="col" style="width: 10.0%; text-align: center !important;" >Nr lekcji</th>
-                    <th scope="col" style="width: 15.0%; text-align: center !important;" >Pon</th>
-                    <th scope="col" style="width: 15.0%; text-align: center !important;" >Wt</th>
-                    <th scope="col" style="width: 15.0%; text-align: center !important;" >Śr</th>
-                    <th scope="col" style="width: 15.0%; text-align: center !important;" >Czw</th>
-                    <th scope="col" style="width: 15.0%; text-align: center !important;" >Pt</th>
-                    <th scope="col" style="width: 15.0%; text-align: center !important;" >Sob</th>
+                    <th scope="col" style="width: 10.0%; text-align: center !important;" >№ заняття</th>
+                    <th scope="col" style="width: 15.0%; text-align: center !important;" >Пн</th>
+                    <th scope="col" style="width: 15.0%; text-align: center !important;" >Вт</th>
+                    <th scope="col" style="width: 15.0%; text-align: center !important;" >Ср</th>
+                    <th scope="col" style="width: 15.0%; text-align: center !important;" >Чт</th>
+                    <th scope="col" style="width: 15.0%; text-align: center !important;" >Пт</th>
+                    <th scope="col" style="width: 15.0%; text-align: center !important;" >Сб</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -55,9 +55,9 @@
           <br>
           <div class="row justify-content-center">
             {% if person == 'student' %}
-              <a class="btn btn-outline-dark" href="{%url 'yourgrades:student_parent' %}"><b>POWRÓT</b></a>
+              <a class="btn btn-outline-dark" href="{%url 'yourgrades:student_parent' %}"><b>ПОВЕРНУТИСЯ</b></a>
             {% elif person == 'teacher' %}
-              <a class="btn btn-outline-dark" href="{%url 'yourgrades:teacher' %}"><b>POWRÓT</b></a>
+              <a class="btn btn-outline-dark" href="{%url 'yourgrades:teacher' %}"><b>ПОВЕРНУТИСЯ</b></a>
             {% endif %}
           </div>
           <br>

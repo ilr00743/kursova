@@ -49,7 +49,7 @@
                   {% if student.first_login is not False %}
                     <div class="col-8">
                       Перед першим входом<br>
-                      <u>Ім'я користувача</u>: {{student.user.username}} &nbsp; &nbsp; &nbsp;<u>Пароль</u>: {{student.user.username}}123)
+                      <u>Ім'я користувача</u>: {{student.user.username}} &nbsp; &nbsp; &nbsp;<u>Пароль</u>: {{student.user.username}}123
                     </div>
                     <div class="col-4">
                       <a class="btn btn-secondary" href="{%url 'yourgrades:manager_reset_user' 123 student.user.id %}">Скинути дані для входу</a>
@@ -76,11 +76,12 @@
                       {{form.birthday.label}}{{form.birthday}}<br>
                     </div>
                     <div class="col-4">
+                      <b>Дані одного з батьків:</b><br>
                       {{form.first_parent_name.label}}{{form.first_parent_name}}<br>
                       {{form.first_parent_surname.label}}{{form.first_parent_surname}}<br>
                     </div>
                     <div class="col-4">
-                      <b>необов'язково:</b><br>
+                      <b>Дані ще одного з батьків (необов'язково):</b><br>
                       {{form.second_parent_name.label}}{{form.second_parent_name}}<br>
                       {{form.second_parent_surname.label}}{{form.second_parent_surname}}<br>
                     </div>
@@ -107,7 +108,7 @@
                   <a class="btn btn btn-outline-dark" href="{%url 'yourgrades:subject_view' current_class.unique_code subject.unique_code %}">про предмет</a>
                 </div>
                 <div class="col-2">
-                  <a class="btn btn btn-outline-dark" onclick="return confirm('Jesteś pewien, że chcesz usunąć ten przedmiot?')" href="{%url 'yourgrades:del_subject' current_class.unique_code subject.unique_code %}"> видалити</a>
+                  <a class="btn btn btn-outline-dark" onclick="return confirm('Ви впевнені, що хочете видалити цей предмет?')" href="{%url 'yourgrades:del_subject' current_class.unique_code subject.unique_code %}"> видалити</a>
                 </div>
                 <br><hr>
               {% endfor %}

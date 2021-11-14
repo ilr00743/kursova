@@ -58,7 +58,7 @@
                       {% for grade in grades %}
                       <tr>
                         <th scope="row">
-                          {{grade.date}} {{grade.subject.unique_code}} {{grade.student}} {{grade.student.school_class.unique_code}} {{grade.grade}} / {{grade.weight}} <br>
+                          {{grade.date}} {{grade.subject.unique_code}} {{grade.student}} {{grade.student.school_class.unique_code}} {{grade.grade}} <br>
                         </th>
                       </tr>
                       {% endfor%}
@@ -80,6 +80,76 @@
                       </span>
                     </div>
                   </div>
+                  <br><br>
+                  <div class="col-11">
+                    <br>
+                  <div class="row">
+                    <table class="table table-responsive">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col" style="width: 10.0%" >ОЦІНКИ З ПРЕДМЕТУ, ДОДАНІ АДМІНІСТРАТОРОМ:</th>
+                        </tr>
+                      </thead>
+                      {% for grade in manager_grades %}
+                      <tr>
+                        <th scope="row">
+                          {{grade.date}} {{grade.subject.unique_code}} {{grade.student}} {{grade.student.school_class.unique_code}} {{grade.grade}} <br>
+                        </th>
+                      </tr>
+                      {% endfor%}
+                    </table>
+
+                  </div>
+                    <div class="pagination">
+                      <span class="step-links">
+                        {% if manager_grades.has_previous %}
+                          <a href="?page2=1" style="color:black; font-weight: bold;">&laquo; початкова</a>
+                          <a href="?page2={{ manager_grades.previous_page_number }}" style="color:black; font-weight: bold;">попередня</a>
+                        {% endif %}
+                        <span class="current" style="color:black; font-weight: bold;">
+                          сторінка {{ manager_grades.number }} з {{ manager_grades.paginator.num_pages }}.
+                        </span>
+                        {% if manager_grades.has_next %}
+                          <a href="?page2={{ manager_grades.next_page_number }}" style="color:black; font-weight: bold;">наступна</a>
+                          <a href="?page2={{ manager_grades.num_pages }}" style="color:black; font-weight: bold;">остання &raquo;</a>
+                        {% endif %}
+                      </span>
+                    </div>
+                  </div>
+                    <br><br>
+                  <div class="col-11">
+                    <br>
+                  <div class="row">
+                    <table class="table table-responsive">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col" style="width: 10.0%" >ВИДАЛЕНІ ОЦІНКИ З ПРЕДМЕТУ:</th>
+                        </tr>
+                      </thead>
+                      {% for grade in manager_canceled_grades %}
+                        <tr>
+                          <th scope="row">
+                            {{grade.date}} {{grade.subject.unique_code}} {{grade.student}} {{grade.student.school_class.unique_code}} {{grade.grade}} <br>
+                          </th>
+                        </tr>
+                      {% endfor%}
+                    </table>
+                  </div>
+                    <div class="pagination">
+                      <span class="step-links">
+                        {% if manager_canceled_grades.has_previous %}
+                          <a href="?page3=1" style="color:black; font-weight: bold;">&laquo; початкова</a>
+                          <a href="?page3={{ manager_canceled_grades.previous_page_number }}" style="color:black; font-weight: bold;">попередня</a>
+                        {% endif %}
+                        <span class="current" style="color:black; font-weight: bold;">
+                          сторінка {{ manager_canceled_grades.number }} з {{ manager_canceled_grades.paginator.num_pages }}.
+                        </span>
+                        {% if manager_canceled_grades.has_next %}
+                          <a href="?page3={{ manager_canceled_grades.next_page_number }}" style="color:black; font-weight: bold;">наступна</a>
+                          <a href="?page3={{ manager_canceled_grades.num_pages }}" style="color:black; font-weight: bold;">остання &raquo;</a>
+                        {% endif %}
+                      </span>
+                    </div>
                 </div>
               </div>
             <div class="col-6">
@@ -91,7 +161,7 @@
                 <table class="table table-responsive">
                   <thead class="thead-dark">
                     <tr>
-                      <th scope="col" style="width: 10.0%" >Номер заняття</th>
+                      <th scope="col" style="width: 10.0%" >№ заняття</th>
                       <th scope="col" style="width: 15.0%" >Пн</th>
                       <th scope="col" style="width: 15.0%" >Вт</th>
                       <th scope="col" style="width: 15.0%" >Ср</th>
@@ -109,7 +179,7 @@
                             <div class="col-1 center-block">
                             <td style="text-align: center !important;">
                               <i class="material-icons align-text-bottom" style="font-size:25px; ">check_circle</i>
-                              <a class="btn btn-outline-dark" href="{% url 'yourgrades:delete_date' class.unique_code subject.unique_code forloop.counter forloop.parentloop.counter %}" style="font-size:12px;" > usuń </a>
+                              <a class="btn btn-outline-dark" href="{% url 'yourgrades:delete_date' class.unique_code subject.unique_code forloop.counter forloop.parentloop.counter %}" style="font-size:12px;" >del</a>
                             </td>
                             </div>
                           {% else %}

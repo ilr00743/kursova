@@ -17,7 +17,7 @@
               <a class="btn btn-secondary" data-toggle="tooltip" title="Надіслати повідомлення батькам" href="{%url 'yourgrades:create_message' 5 student.user.id %}"><i class="material-icons align-text-bottom" style="font-size:25px; color:#FED65E;">mail</i></a>
             </div>
             <div class="col-sm-1">
-              <a class="btn btn-secondary" data-toggle="tooltip" title="Надіслати повідомлення здобувачам освіти" href="{%url 'yourgrades:create_message' 4 student.user.id %}"><i class="material-icons align-text-bottom" style="font-size:25px;">mail</i></a>
+              <a class="btn btn-secondary" data-toggle="tooltip" title="Надіслати повідомлення здобувачу освіти" href="{%url 'yourgrades:create_message' 4 student.user.id %}"><i class="material-icons align-text-bottom" style="font-size:25px;">mail</i></a>
             </div>
           </div>
           <br>
@@ -78,7 +78,7 @@
                 <th>
                   <form class="form-inline" action="{% url 'yourgrades:manager_student' student.user.id %}" method="POST">
                   {% for grade in grades %}
-                    <b >{{grade.grade}}</b>/<span>{{grade.weight}}</span> ({{grade.date|date:"SHORT_DATE_FORMAT"}})
+                    <b >{{grade.grade}}</b> ({{grade.date|date:"SHORT_DATE_FORMAT"}})
                       {% csrf_token %}
                       <input type="hidden" name="del_grade" value={{grade.id}}>
                       <button class="btn btn-outline-dark" onclick="return confirm('Видалити оцінку {{grade.grade}},  видану {{grade.date}}?')" style="font-size: 12px;" type="submit"><b>Видалити</b></button>

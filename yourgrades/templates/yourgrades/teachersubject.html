@@ -6,7 +6,7 @@
       {% if wrong is True %}
         <div class="alert alert-warning">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-          <strong> Wpisano niepoprawną wartość oceny lub wagi. Proszę poprawić. </strong>
+          <strong> Введено некоректне значення оцінки. </strong>
         </div>
       {% endif %}
       <div class="row">
@@ -15,11 +15,11 @@
             <table class="table table-responsive table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col" style="width: 12.0%; text-align: center;">WIADOMOŚĆ DO UCZNIÓW</th>
-                  <th scope="col" style="width: 13.0%; text-align: center;">WIADOMOŚĆ DO RODZICÓW</th>
-                  <th scope="col" style="width: 14.0%; text-align: center;">UCZEŃ</th>
-                  <th scope="col" style="width: 38.0%; text-align: center;">OCENY (OCENA / WAGA)</th>
-                  <th scope="col" style="width: 23.0%; text-align: center;">WPROWADŹ NOWĄ OCENĘ</th>
+                  <th scope="col" style="width: 12.0%; text-align: center;">ПОВІДОМЛЕННЯ УЧНЯМ</th>
+                  <th scope="col" style="width: 13.0%; text-align: center;">ПОВІДОМЛЕННЯ БАТЬКАМ</th>
+                  <th scope="col" style="width: 14.0%; text-align: center;">УЧЕНЬ</th>
+                  <th scope="col" style="width: 38.0%; text-align: center;">ОЦІНКА</th>
+                  <th scope="col" style="width: 23.0%; text-align: center;">ДОДАТИ НОВУ ОЦІНКУ</th>
                 </tr>
               </thead>
               {% for student in students %}
@@ -35,19 +35,19 @@
                   </th>
                   <th>
                     {% for grade in student.1 %}
-                      <b>{{grade.grade}} /</b> {{grade.weight}}, &nbsp;&nbsp;
+                      <b>{{grade.grade}}, &nbsp;&nbsp;
                     {% endfor %}
                   </th>
                   <th>
                     <form id={{student.0.user.id}} action="{% url 'yourgrades:teacher_subject' subject.unique_code %}" method="POST">
                       {% csrf_token %}
                       {% if invalid_student == student.0 %}
-                        {{form2.grade}}{{form2.weight}}
+                        {{form2.grade}}
                       {% else %}
-                        {{form.grade}}{{form.weight}}
+                        {{form.grade}}
                       {% endif %}
                       <input type="hidden" name="student" value={{student.0.user.id}}>
-                      <button class="btn btn-outline-dark" type="submit"><b>wprowadź nową ocenę <i class="material-icons align-text-bottom" style="font-size:25px;">border_color </i></b></button>
+                      <button class="btn btn-outline-dark" type="submit"><b>Додати нову оцінку <i class="material-icons align-text-bottom" style="font-size:25px;">border_color </i></b></button>
                     </form>
                   </th>
                 </tr>
@@ -56,7 +56,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <a class="btn btn-outline-dark" href="{%url 'yourgrades:teacher' %}"> <b>WRÓĆ DO PANELU NAUCZYCIELA</b> </a>
+              <a class="btn btn-outline-dark" href="{%url 'yourgrades:teacher' %}"> <b>ПОВЕРНУТИСЯ ДО ПАНЕЛІ ВИКЛАДАЧА</b> </a>
             </div>
           </div>
           <br>
@@ -66,13 +66,13 @@
               <table class="table table-responsive table-bordered">
                 <thead class="thead-dark">
                   <tr>
-                    <th scope="col" style="width: 12.0%; text-align: center;">OCENY Z PRZEDMIOTU DODANE PRZEZ NAUCZYCIELI <br>(nie uwzględnia modyfikacji managera)</th>
+                    <th scope="col" style="width: 12.0%; text-align: center;">ОЦІНКИ З ПРЕДМЕТУ, ДОДАНІ ВИКЛАДАЧАМИ</th>
                   </tr>
                 </thead>
                 {% for grade in grades %}
                 <tr>
                   <th>
-                    {{grade.date}} {{grade.subject.unique_code}} {{grade.student}} {{grade.student.school_class.unique_code}} {{grade.grade}} / {{grade.weight}} <br>
+                    {{grade.date}} {{grade.subject.unique_code}} {{grade.student}} {{grade.student.school_class.unique_code}} {{grade.grade}} <br>
                   </th>
                 </tr>
               {% endfor%}
@@ -80,15 +80,15 @@
               <div class="pagination">
                 <span class="step-links">
                   {% if grades.has_previous %}
-                    <a href="?page1=1">&laquo; <b style="color: black">pierwsza</b></a>
-                    <a href="?page1={{ grades.previous_page_number }}"><b style="color: black">poprzednia</b></a>
+                    <a href="?page1=1">&laquo; <b style="color: black">початкова</b></a>
+                    <a href="?page1={{ grades.previous_page_number }}"><b style="color: black">попередня</b></a>
                   {% endif %}
                   <span class="current">
-                    strona {{ grades.number }} z {{ grades.paginator.num_pages }}.
+                    сторінка {{ grades.number }} з {{ grades.paginator.num_pages }}.
                   </span>
                   {% if grades.has_next %}
-                    <a href="?page1={{ grades.next_page_number }}"><b style="color: black">następna</b></a>
-                    <a href="?page1={{ grades.paginator.num_pages }}"><b style="color: black">ostatnia&raquo;</b></a>
+                    <a href="?page1={{ grades.next_page_number }}"><b style="color: black">наступна</b></a>
+                    <a href="?page1={{ grades.paginator.num_pages }}"><b style="color: black">остання&raquo;</b></a>
                   {% endif %}
                 </span>
               </div>
@@ -98,13 +98,13 @@
               <table class="table table-responsive table-bordered">
                 <thead class="thead-dark">
                   <tr>
-                    <th scope="col" style="width: 12.0%; text-align: center;">OCENY Z PRZEDMIOTU DODANE PRZEZ MANAGERÓW</th>
+                    <th scope="col" style="width: 12.0%; text-align: center;">ОЦІНКИ З ПРЕДМЕТУ, ДОДАНІ АДМІНІСТРАТОРОМ</th>
                   </tr>
                 </thead>
                 {% for grade in manager_grades %}
                   <tr>
                     <th>
-                      {{grade.date}} {{grade.subject.unique_code}} {{grade.student}} {{grade.student.school_class.unique_code}} {{grade.grade}} / {{grade.weight}} <br>
+                      {{grade.date}} {{grade.subject.unique_code}} {{grade.student}} {{grade.student.school_class.unique_code}} {{grade.grade}} <br>
                     </th>
                   </tr>
                 {% endfor%}
@@ -112,15 +112,15 @@
               <div class="pagination">
                 <span class="step-links">
                   {% if manager_grades.has_previous %}
-                    <a href="?page2=1"><b style="color: black"> &laquo; pierwsza</b></a>
-                    <a href="?page2={{ manager_grades.previous_page_number }}"><b style="color: black">poprzednia</b></a>
+                    <a href="?page2=1"><b style="color: black"> &laquo; початкова</b></a>
+                    <a href="?page2={{ manager_grades.previous_page_number }}"><b style="color: black">попередня</b></a>
                   {% endif %}
                   <span class="current">
-                    strona {{ manager_grades.number }} z {{ manager_grades.paginator.num_pages }}.
+                    сторінка {{ manager_grades.number }} з {{ manager_grades.paginator.num_pages }}.
                   </span>
                   {% if manager_grades.has_next %}
-                    <a href="?page2={{ manager_grades.next_page_number }}"><b style="color: black">następna</b></a>
-                    <a href="?page2={{ manager_grades.num_pages }}"><b style="color: black">ostatnia &raquo;</b></a>
+                    <a href="?page2={{ manager_grades.next_page_number }}"><b style="color: black">наступна</b></a>
+                    <a href="?page2={{ manager_grades.num_pages }}"><b style="color: black">остання &raquo;</b></a>
                   {% endif %}
                 </span>
               </div>
@@ -130,13 +130,13 @@
               <table class="table table-responsive table-bordered">
                 <thead class="thead-dark">
                   <tr>
-                    <th scope="col" style="width: 12.0%; text-align: center;">USUNIĘTE OCENY Z PRZEDMIOTU</th>
+                    <th scope="col" style="width: 12.0%; text-align: center;">ВИДАЛЕНІ ОЦІНКИ З ПРЕДМЕТУ</th>
                   </tr>
                 </thead>
                 {% for grade in manager_canceled_grades %}
                 <tr>
                   <th>
-                    {{grade.date}} {{grade.subject.unique_code}} {{grade.student}} {{grade.student.school_class.unique_code}} {{grade.grade}} / {{grade.weight}} <br>
+                    {{grade.date}} {{grade.subject.unique_code}} {{grade.student}} {{grade.student.school_class.unique_code}} {{grade.grade}} <br>
                   </th>
                 </tr>
                 {% endfor%}
@@ -144,15 +144,15 @@
               <div class="pagination">
                 <span class="step-links">
                   {% if manager_canceled_grades.has_previous %}
-                    <a href="?page3=1"><b style="color: black">&laquo; pierwsza</b></a>
-                    <a href="?page3={{ manager_canceled_grades.previous_page_number }}"><b style="color: black">poprzednia</b></a>
+                    <a href="?page3=1"><b style="color: black">&laquo; початкова</b></a>
+                    <a href="?page3={{ manager_canceled_grades.previous_page_number }}"><b style="color: black">попередня</b></a>
                   {% endif %}
                   <span class="current">
-                    strona {{ manager_canceled_grades.number }} z {{ manager_canceled_grades.paginator.num_pages }}.
+                    сторінка {{ manager_canceled_grades.number }} з {{ manager_canceled_grades.paginator.num_pages }}.
                   </span>
                   {% if manager_canceled_grades.has_next %}
-                    <a href="?page3={{ manager_canceled_grades.next_page_number }}"><b style="color: black">następna</b></a>
-                    <a href="?page3={{ manager_canceled_grades.num_pages }}"><b style="color: black">ostatnia &raquo;</b></a>
+                    <a href="?page3={{ manager_canceled_grades.next_page_number }}"><b style="color: black">наступна</b></a>
+                    <a href="?page3={{ manager_canceled_grades.num_pages }}"><b style="color: black">остання &raquo;</b></a>
                   {% endif %}
                 </span>
               </div>

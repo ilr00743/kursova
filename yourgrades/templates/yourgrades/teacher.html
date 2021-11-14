@@ -12,13 +12,13 @@
               <table class="table table-responsive table-hover">
                 <thead class="thead-dark">
                   <tr>
-                    <th scope="col">PRZEDMIOTY KTÓRYCH UCZYSZ</th>
+                    <th scope="col">ПРЕДМЕТИ, ЯКІ Я ВИКЛАДАЮ</th>
                   </tr>
                 </thead>
                 {% for subject in subjects %}
                   <tr onclick="document.location='{% url 'yourgrades:teacher_subject' subject.unique_code %}';" style="cursor: pointer;">
                     <th>
-                      <b>{{subject}}</b> w klasie <b>{{subject.school_class}}</b>
+                      <b>{{subject}}</b> у класу <b>{{subject.school_class}}</b>
                     </th>
                   </tr>
                 {% endfor%}
@@ -28,9 +28,9 @@
               <table class="table table-responsive table-striped" style="text-align: center;">
                 <thead class="thead-dark">
                   <tr>
-                    <th scope="col"  style="width: 30.0%">KLASY W KTÓRYCH UCZYSZ</th>
-                    <th scope="col"  style="width: 35.0%">WYŚLIJ WIADOMOŚĆ UCZNIOM</th>
-                    <th scope="col"  style="width: 35.0%">WYŚLIJ WIADOMOŚĆ RODZICOM</th>
+                    <th scope="col"  style="width: 30.0%">КЛАСИ, У ЯКИХ Я ВИКЛАДАЮ</th>
+                    <th scope="col"  style="width: 35.0%">ВІДПРАВИТИ ПОВІДОМЛЕННЯ УЧНЯМ</th>
+                    <th scope="col"  style="width: 35.0%">ВІДПРАВИТИ ПОВІДОМЛЕННЯ БАТЬКАМ</th>
                   </tr>
                 </thead>
                 {% for class in school_classes %}
@@ -52,9 +52,9 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <a class="btn btn-outline-dark" href="{%url 'yourgrades:timetable' 'teacher' %}"> SOBACZ SWÓJ PLAN LEKCJI </a>
+              <a class="btn btn-outline-dark" href="{%url 'yourgrades:timetable' 'teacher' %}"> ПЕРЕГЛЯНУТИ СВІЙ РОЗКЛАД ЗАНЯТЬ </a>
               <br><br>
-              <a class="btn btn-outline-dark" href="{%url 'yourgrades:create_message' 6 None %}"> WYŚLIJ WIADOMOŚĆ DO MANAGERA </a>
+              <a class="btn btn-outline-dark" href="{%url 'yourgrades:create_message' 6 None %}"> ВІДПРАВИТИ ПОВІДОМЛЕННЯ АДМІНІСТРАТОРУ </a>
             </div>
           </div>
         </div>

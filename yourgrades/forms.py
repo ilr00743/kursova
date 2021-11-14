@@ -56,17 +56,17 @@ class CreateStudentForm(forms.Form):
         )
     )
     birthday = forms.DateField(
-        label='Дата народження (rrrr-mm-dd):',
+        label='Дата народження:',
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Введіть дату',
+                'placeholder': 'рррр-мм-дд',
                 'class': 'form-control'
             }
         )
     )
     first_parent_name = forms.CharField(
         max_length=64,
-        label='Ім\'я мами:',
+        label='Ім\'я мами чи тата:',
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Введіть ім\'я',
@@ -76,7 +76,7 @@ class CreateStudentForm(forms.Form):
     )
     first_parent_surname = forms.CharField(
         max_length=64,
-        label='Прізвище мами:',
+        label='Прізвище мами чи тата:',
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Введіть прізвище',
@@ -87,7 +87,7 @@ class CreateStudentForm(forms.Form):
     second_parent_name = forms.CharField(
         max_length=64,
         required=False,
-        label='Ім\'я тата:',
+        label='Ім\'я мами чи тата:',
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Введіть ім\'я',
@@ -98,7 +98,7 @@ class CreateStudentForm(forms.Form):
     second_parent_surname = forms.CharField(
         max_length=64,
         required=False,
-        label='Прізвище тата:',
+        label='Прізвище мами чи тата:',
         widget=forms.TextInput(
             attrs={
                 'placeholder':'Введіть прізвище',
@@ -175,10 +175,6 @@ class AddGradeForm(forms.ModelForm):
             attrs={'placeholder': 'Оцінка 1 - 5',
                    'class': 'form-control input-sm'}
         )
-        #self.fields['weight'].widget = forms.NumberInput(
-        #    attrs={'placeholder': 'waga  1 - 10',
-        #           'class': 'form-control input-sm'}
-        #)
 
     class Meta:
         model = Grades

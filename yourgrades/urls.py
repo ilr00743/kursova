@@ -69,6 +69,4 @@ urlpatterns = [
          views.CreateMessageView.as_view(), name='create_message'),
     path('/manager/student/<int:user_id>', views.ManagerStudentView.as_view(),
          name='manager_student'),
-    path('/manager/history', views.ManagerGradesHistoryView.as_view(),
-         name='manager_history'),
 ]

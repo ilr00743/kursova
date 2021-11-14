@@ -16,7 +16,6 @@ from .models import *
 from .permissions import *
 from .forms import *
 
-
 class BaseView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -605,7 +604,7 @@ class ManagerSubjectView(LoginRequiredMixin, UserPassesTestMixin,
         context['subject'] = subject
         context['class'] = school_class
         subject_dates = SubjectDate.objects.filter(subject=subject)
-        dates = [[False for days in range(1, 7)] for lessons in range(1, 13)]
+        dates = [[False for days in range(1, 7)] for lessons in range(1, 9)]
         for subject_date in subject_dates:
             iteration = -1
             for day in ['Mo', 'Tu', 'We', 'Th', 'Fr', 'St']:
@@ -733,7 +732,7 @@ class TimetableView(LoginRequiredMixin, UserPassesTestMixin, BaseView):
             all_subject_dates[subject] = SubjectDate.objects.filter(
                 subject=subject,
             )
-        dates = [[False for days in range(1, 7)] for lessons in range(1, 13)]
+        dates = [[False for days in range(1, 7)] for lessons in range(1, 9)]
 
         for subject_dates in all_subject_dates.values():
             for subject_date in subject_dates:
@@ -821,7 +820,6 @@ class ManagerStudentView(LoginRequiredMixin, UserPassesTestMixin,
                 id=self.request.POST.get('del_grade')
             )
             canceled_grade = CanceledGrades(
-                weight=grade.weight,
                 grade=grade.grade,
                 date=grade.date,
                 subject=grade.subject,
@@ -830,9 +828,9 @@ class ManagerStudentView(LoginRequiredMixin, UserPassesTestMixin,
             canceled_grade.save()
             with transaction.atomic():
                 message = Message(
-                    subject='Grade canceled',
-                    text=f'Your grade for the subject {grade.subject.name} '
-                         f'has been canceled({grade.grade}/{grade.weight}).'
+                    subject='Оцінку відмінено',
+                    text=f'Твою оцінку ({grade.grade}) з предмету {grade.subject.name} '
+                         f'було відмінено.'
                 )
                 message.save()
                 sender = Sender(user=self.request.user, message=message)
@@ -868,9 +866,9 @@ class ManagerStudentView(LoginRequiredMixin, UserPassesTestMixin,
             )
         try:
             message = Message(
-                subject='Nowa ocena',
-                text=f'Wprowadzono nowa ocene z przedmiotu {subject.name}. '
-                     f'Twoja ocena to  {grade.grade} o wadze {grade.weight}.',
+                subject='Нова оцінка',
+                text=f'Введена нова оцінка з предмету {subject.name}. '
+                     f'Твоя оцінка {grade.grade}.',
             )
             with transaction.atomic():
                 message.save()
@@ -1305,9 +1303,9 @@ class TeacherSubjectView(LoginRequiredMixin, UserPassesTestMixin,
                 "There was a problem with grade saving. Try again later"
             )
         message = Message(
-            subject='New grade',
-            text=f'You have a new grade for the subject {subject.name}. '
-                 f'Your grade is {grade.grade} with weight {grade.weight}.'
+            subject='Нова оцінка',
+            text=f'Ти отримав нову оцінку з предмету {subject.name}. '
+                 f'Твоя оцінка: {grade.grade}.'
         )
         with transaction.atomic():
             try:

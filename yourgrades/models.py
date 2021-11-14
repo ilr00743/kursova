@@ -19,7 +19,7 @@ class SchoolClass(models.Model):
     )
     year = models.IntegerField(
         validators=[MinValueValidator(1800), MaxValueValidator(9999)],
-        help_text='Чотирьох-значний рік закінчення навчання'
+        help_text='Чотирьох-значний рік навчання'
     )
     active = models.BooleanField(default=True)
 
@@ -74,7 +74,7 @@ class Subject(models.Model):
     unique_code = models.CharField(
         unique=True,
         max_length=8,
-        help_text='Format: subject shortcut + class shortcut e.g.: Hi2c2019'
+        help_text='Формат: скорочена назва предмему + назва класу і їхній рік, наприклад : Hi2c2019'
     )
     school_class = models.ForeignKey(SchoolClass, on_delete=models.CASCADE)
 
@@ -92,11 +92,8 @@ class SubjectDate(models.Model):
         (6, '6'),
         (7, '7'),
         (8, '8'),
-        (9, '9'),
-        (10, '10'),
-        (11, '11'),
     )
-    # days of the week
+    
     DAYS = (
         ('Mo', 'Понеділок'),
         ('Tu', 'Вівторок'),
@@ -108,7 +105,7 @@ class SubjectDate(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     day = models.CharField(max_length=2, choices=DAYS)
     lesson_number = models.IntegerField(
-        validators=[MaxValueValidator(12), MinValueValidator(1)],
+        validators=[MaxValueValidator(8), MinValueValidator(1)],
         choices=LESSONS
     )
 
@@ -125,7 +122,7 @@ class GradesData(models.Model):
     )
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         self.full_clean()

@@ -6,7 +6,7 @@
       {% if no_students is True %}
         <div class="alert alert-warning">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-          <strong> W tej klasie nie ma jeszcze uczniów. Wiadomość do nikogo nie dotrze. </strong>
+          <strong> У цьому класі поки що немає учнів. Повідомлення нікому не буде відправлено </strong>
         </div>
       {% endif %}
       <div class="row">
@@ -14,7 +14,7 @@
           {% if recipient_type == 1 %}
             <div class="row">
               <div class="col-12">
-                <h3 >WYSYŁASZ WIADOMOŚĆ DO WSZYSTKICH UCZNIÓW KLASY <b>{{recipient}}</b></h3>
+                <h3 >ВІДПРАВИТИ ПОВІДОМЛЕННЯ УСІМ УЧНЯМ КЛАСУ <b>{{recipient}}</b></h3>
               </div>
             </div>
             <form action="{% url 'yourgrades:create_message' 1 recipient.unique_code %}" method="POST">
@@ -33,7 +33,7 @@
               <br>
               <div class="row">
                 <div class="col-12">
-                  <button class="btn btn-outline-dark" type="submit"><b>WYŚLIJ WIADOMOŚĆ</b></button>
+                  <button class="btn btn-outline-dark" type="submit"><b>ВІДПРАВИТИ ПОВІДОМЛЕННЯ</b></button>
                 </div>
               </div>
             </form>
@@ -41,7 +41,7 @@
            {% if recipient_type == 2 %}
             <div class="row">
               <div class="col-12">
-                <h3 >WYSYŁASZ WIADOMOŚĆ DO WSZYSTKICH RODZICÓW UCZNIÓW KLASY <b>{{recipient}}</b></h3>
+                <h3 >ВІДПРАВИТИ ПОВІДОМЛЕННЯ УСІМ БАТЬКАМ УЧНІВ КЛАСУ <b>{{recipient}}</b></h3>
               </div>
             </div>
             <form action="{% url 'yourgrades:create_message' 2 recipient.unique_code %}" method="POST">
@@ -60,14 +60,14 @@
               <br>
               <div class="row">
                 <div class="col-12">
-                  <button class="btn btn-outline-dark" type="submit"><b>WYŚLIJ WIADOMOŚĆ</b></button>
+                  <button class="btn btn-outline-dark" type="submit"><b>ВІДПРАВИТИ ПОВІДОМЛЕННЯ</b></button>
                 </div>
               </div>
             </form>
           {% endif %}
           {% if recipient_type == 3 %}
             <div class="row">
-              <h3>WYSYŁASZ WIADOMOŚĆ DO NAUCZYCIELI <b>{% for teacher in recipient.teacher.all %}{{teacher}}{% endfor %}</b> PRZEDMIOTU {{recipient.subject}}</h3>
+              <h3>ВІДПРАВИТИ ПОВІДОМЛЕННЯ ВИКЛАДАЧУ <b>{% for teacher in recipient.teacher.all %}{{teacher}}{% endfor %}</b> ПРЕДМЕТУ {{recipient.subject}}</h3>
             </div>
             <form action="{% url 'yourgrades:create_message' 3 recipient.subject.unique_code %}" method="POST">
               {% csrf_token %}
@@ -85,7 +85,7 @@
               <br>
               <div class="row">
                 <div class="col-12">
-                  <button class="btn btn-outline-dark" type="submit"><b>WYŚLIJ WIADOMOŚĆ</b></button>
+                  <button class="btn btn-outline-dark" type="submit"><b>ВІДПРАВИТИ ПОВІДОМЛЕННЯ</b></button>
                 </div>
               </div>
             </form>
@@ -93,7 +93,7 @@
           {% if recipient_type == 4 %}
             <div class="row">
               <div class="col-12">
-                <h3>WYSYŁASZ WIADOMOŚĆ DO UCZNIA <b>{{recipient}}</b> Z KLASY {{recipient.school_class}}</h3>
+                <h3>ВІДПРАВИТИ ПОВІДОМЛЕННЯ УЧНЮ <b>{{recipient}}</b> З КЛАСУ {{recipient.school_class}}</h3>
               </div>
             </div>
             <form action="{% url 'yourgrades:create_message' 4 recipient.user.id %}" method="POST">
@@ -112,14 +112,14 @@
               <br>
               <div class="row">
                 <div class="col-12">
-                  <button class="btn btn-outline-dark" type="submit"><b>WYŚLIJ WIADOMOŚĆ</b></button>
+                  <button class="btn btn-outline-dark" type="submit"><b>ВІДПРАВИТИ ПОВІДОМЛЕННЯ</b></button>
                 </div>
               </div>
             </form>
           {% endif %}
           {% if recipient_type == 5 %}
             <div class="row">
-              <h3>WYSYŁASZ WIADOMOŚĆ DO RODZICÓW UCZNIA <b>{{recipient}}</b> Z KLASY {{recipient.school_class}}</h3>
+              <h3>ВІДПРАВИТИ ПОВІДОМЛЕННЯ БАТЬКАМ УЧНЯ <b>{{recipient}}</b> З КЛАСУ {{recipient.school_class}}</h3>
             </div>
             <form action="{% url 'yourgrades:create_message' 5 recipient.user.id %}" method="POST">
               {% csrf_token %}
@@ -137,7 +137,7 @@
               <br>
               <div class="row">
                 <div class="col-12">
-                  <button class="btn btn-outline-dark" type="submit"><b>WYŚLIJ WIADOMOŚĆ</b></button>
+                  <button class="btn btn-outline-dark" type="submit"><b>ВІДПРАВИТИ ПОВІДОМЛЕННЯ/b></button>
                 </div>
               </div>
             </form>
@@ -145,7 +145,7 @@
           {% if recipient_type == 6 %}
             <div class="row">
               <div class="col-12">
-                <h3 >WYSYŁASZ WIADOMOŚĆ DO MANAGERA <b>{{recipient}}</b></h3>
+                <h3 >ВІДПРАВИТИ ПОВІДОМЛЕННЯ АДМІНІСТРАТОРУ <b>{{recipient}}</b></h3>
               </div>
             </div>
             <form action="{% url 'yourgrades:create_message' 6 None %}" method="POST">
@@ -164,7 +164,7 @@
               <br>
               <div class="row">
                 <div class="col-12">
-                  <button class="btn btn-outline-dark" type="submit"><b>WYŚLIJ WIADOMOŚĆ</b></button>
+                  <button class="btn btn-outline-dark" type="submit"><b>ВІДПРАВИТИ ПОВІДОМЛЕННЯ</b></button>
                 </div>
               </div>
             </form>
@@ -172,7 +172,7 @@
           {% if recipient_type == 7 %}
             <div class="row">
               <div class="col-12">
-                <h3>WYSYŁASZ WIADOMOŚĆ DO NAUCZYCIELA<b> {{recipient}}</b></h3>
+                <h3>ВІДПРАВИТИ ПОВІДОМЛЕННЯ ВИКЛАДАЧУ<b> {{recipient}}</b></h3>
               </div>
             </div>
             <form action="{% url 'yourgrades:create_message' 7 recipient.user.id %}" method="POST">
@@ -191,16 +191,16 @@
               <br>
               <div class="row">
                 <div class="col-12">
-                  <button class="btn btn-outline-dark" type="submit"><b>WYŚLIJ WIADOMOŚĆ</b></button>
+                  <button class="btn btn-outline-dark" type="submit"><b>ВІДПРАВИТИ ПОВІДОМЛЕННЯ</b></button>
                 </div>
               </div>
             </form>
           {% endif %}
           <br>
           {% if back is True %}
-            <a class="btn btn-outline-dark" href="{% url 'yourgrades:homepage' %}"><b>ANULUJ</b></a>
+            <a class="btn btn-outline-dark" href="{% url 'yourgrades:homepage' %}"><b>СКАСУВАТИ</b></a>
           {% else %}
-            <a class="btn btn-outline-dark" href="{{request.META.HTTP_REFERER}}"><b>ANULUJ</b></a>
+            <a class="btn btn-outline-dark" href="{{request.META.HTTP_REFERER}}"><b>СКАСУВАТИ</b></a>
           {% endif %}
         </div>
       </div>
