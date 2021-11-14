@@ -1,0 +1,36 @@
+{% extends 'yourgrades/base.html' %}
+
+{% block grades %}
+  <body>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-4 offset-4">
+                <form action="{% url 'yourgrades:manager_teacher_edit' teacher.user.id %}" method="POST">
+                  {% csrf_token %}
+                  <div class="row">
+                    <b style="font-size:18px;">{{form.name.label}}</b>{{form.name}}
+                  </div>
+                  <br>
+                  <div class="row">
+                    <b style="font-size:18px;">{{form.surname.label}}</b>{{form.surname}}
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-7">
+                      <button class="btn btn-outline-dark" type="submit"><b>ЗМІНИТИ ДАНІ</b></button>
+                    </div>
+                    <div class="col-5">
+                      <a class="btn btn-dark cancel" style="font-size:14px;" href="{% url 'yourgrades:manager_teacher' teacher.user.id %}"> <b style="font-size:17px;">СКАСУВАТИ </b></a>
+                    </div>
+                  </div>
+                  <br>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </body>
+{% endblock %}

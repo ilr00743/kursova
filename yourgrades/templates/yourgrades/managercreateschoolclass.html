@@ -1,0 +1,26 @@
+{% extends 'yourgrades/base.html' %}
+
+{% block grades%}
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <form action="{%url 'yourgrades:create_school_class' %}" method="POST">
+            {% csrf_token %}
+            <div class="col-4 offset-4" style="text-align:center">
+              <br>
+              <div class="row">
+                <br> <b style="font-size:16px;">{{form.name.label_tag}}</b> {{form.name}}
+                <br> <b style="font-size:16px;">{{form.year.label_tag}}</b> {{form.year}}
+              </div>
+              <br>
+              <button class="btn btn-outline-secondary text-center" type="submit"><b>СТВОРИТИ КЛАС</b></button>
+              <br><br>
+              <a class="btn btn-secondary logout2" href="{%url 'yourgrades:manager' %}"> СКАСУВАТИ І ПОВЕРНУТИСЯ ДО ПАНЕЛІ </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+{% endblock %}

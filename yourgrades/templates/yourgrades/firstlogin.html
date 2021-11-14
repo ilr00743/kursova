@@ -1,0 +1,104 @@
+<head>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'yourgrades/style.css' %}">
+  <link rel="stylesheet" href="{% static 'yourgrades/css/bootstrap.min.css' %}">
+  <script src="{% static 'yourgrades/jquery-3.4.1.js' %}"></script>
+  <script src="{% static 'yourgrades/popper.min.js' %}"></script>
+  <script src="{% static 'yourgrades/js/bootstrap.min.js' %}"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="icon" href="data:,">
+
+  <title>Класний журнал</title>
+</head>
+<body>
+  <div class="container">
+    {% if user_taken is True %}
+      <div class="alert alert-warning">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Ім'я користувача зайняте. Оберіть інше.</strong>
+      </div>
+    {% endif %}
+    {% if pass_no_confirm is True %}
+      <div class="alert alert-warning">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Не корректно введений пароль. Спробуйте інший.</strong>
+      </div>
+    {% endif %}
+    <div class="row h-100">
+      <div class="col-sm-12 my-auto">
+        <div class="row ">
+          <div class="col-8 offset-2 hello" style="font-size:18px;">
+            <p><b>Добрий день</b>, це Ваш перший вхід</p>
+            <p>
+              Аби розпочати користуватися класний журналом, змініть тимчасовий пароль<br>
+              Також можете змінити своє ім'я, яке використувається при вході (не обов'язково)<br>
+            </p>
+            <p>
+              <div class="row">
+                <div class="col-1 offset-2">
+                  <i class="material-icons align-text-bottom" style="font-size:35px;">contacts</i>
+                </div>
+                <div class="col-8">
+                  <b>Введіть новий пароль:</b>
+                </div>
+              </div>
+            </p>
+          </div>
+        </div>
+        <br><br>
+        <div class="row">
+          <div class="col-8 offset-1">
+            <form action="{% url 'yourgrades:first_login' %}" method="POST">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-sm-6 offset-3 form-group form-inline">
+                  <div class="col-sm-6 text-right">
+                    <b>{{form.username.label}}</b>
+                  </div>
+                  <div class="col-sm-5">
+                    {{form.username}}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 offset-3 form-group form-inline">
+                  <div class="col-sm-6 text-right">
+                    <b>{{form.password.label}}</b>
+                  </div>
+                  <div class="col-sm-5">
+                    {{form.password}}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 offset-3 form-group form-inline">
+                  <div class="col-sm-6 text-right">
+                    <b>{{form.password_confirm.label}}</b>
+                  </div>
+                  <div class="col-sm-5">
+                    {{form.password_confirm}}
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-sm-4 offset-6">
+                  <button type="submit" class="btn btn-outline-secondary text-center login2"><b>ЗБЕРЕГТИ НОВІ ДАНІ</b></button>
+                </div>
+              </div>
+            </form>
+            <br>
+            <div class="row">
+              <div class="col-8 offset-6">
+                  <a class="btn btn-secondary logout2" href="{% url 'yourgrades:logout' %}" style="font-size:16px;"> <b>СКАСУВАТИ І ВИЙТИ</b> </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

@@ -1,0 +1,85 @@
+body {
+    background-color: #F0EFEF !important;
+}
+.container {
+    padding-top: 1%;
+}
+
+.navbar-default .navbar-brand {
+    color: #BDD8D5 !important;
+}
+
+.navbar-dark {
+    color: white;
+}
+
+.login {
+    margin-right:50px !important;
+    margin-left:10px;
+    vertical-align:top;
+}
+
+.logout {
+    vertical-align:top;
+}
+
+.logout:hover {
+    color: #93BFD5 !important;
+}
+
+.mailbox:hover {
+    color: #93BFD5 !important;
+}
+
+.hello {
+    border-radius: 20px;
+    border:2px solid #34495e;
+    padding: 15px;
+}
+.login2 {
+    margin-left:1%;
+}
+
+.logout2:hover {
+    background-color: white !important;
+    color: #6c757d !important;
+}
+
+#parent .info {
+    position:relative;
+    bottom:50px;
+    left:0px;
+    visibility:hidden;
+    z-index: 44;
+}
+
+#parent:hover .info {
+    visibility:visible;
+}
+
+.cancel:hover {
+    background-color: white !important;
+    color: #2C2929 !important;
+}
+
+.mailtext {
+    border-radius: 15px;
+    border:2px solid #34495e;
+    padding: 25px;
+    background-color: white !important;
+}
+
+.mailsubject {
+    border-radius: 15px;
+    border:2px solid #34495e;
+    padding: 15px;
+    background-color: white !important;
+}
+.message_cell:hover {
+    background-color: #D0CDCD !important;
+}
+
+.modal-dialog.modal-800 {
+    width: 800px;
+    margin: 30px auto;
+}

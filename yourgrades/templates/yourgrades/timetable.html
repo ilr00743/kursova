@@ -1,0 +1,68 @@
+{% extends 'yourgrades/base.html' %}
+
+{% block grades %}
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row justify-content-center">
+            <h4>TWÓJ PLAN LEKCJI</h4>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-10 offset-1">
+              <table class="table text-center">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col" style="width: 10.0%; text-align: center !important;" >Nr lekcji</th>
+                    <th scope="col" style="width: 15.0%; text-align: center !important;" >Pon</th>
+                    <th scope="col" style="width: 15.0%; text-align: center !important;" >Wt</th>
+                    <th scope="col" style="width: 15.0%; text-align: center !important;" >Śr</th>
+                    <th scope="col" style="width: 15.0%; text-align: center !important;" >Czw</th>
+                    <th scope="col" style="width: 15.0%; text-align: center !important;" >Pt</th>
+                    <th scope="col" style="width: 15.0%; text-align: center !important;" >Sob</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for lessons in dates %}
+                    <tr>
+                      <th scope="row">{{forloop.counter}}</th>
+                      {% for lesson in lessons %}
+                        {% if lesson is not False %}
+                          <div class="col-1 center-block">
+                            <td style="text-align: center !important;">
+                              {% if person == 'student' %}
+                                {{lesson.name}}
+                              {% else %}
+                                {{lesson.name}}
+                                <br>
+                                {{lesson.school_class.name}}
+                              {% endif %}
+                            </td>
+                          </div>
+                        {% else %}
+                          <td style="text-align: center !important;">
+                            <i class="material-icons align-text-bottom" style="font-size:15px; ">panorama_fish_eye</i>
+                          </td>
+                        {% endif%}
+                      {% endfor %}
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br>
+          <div class="row justify-content-center">
+            {% if person == 'student' %}
+              <a class="btn btn-outline-dark" href="{%url 'yourgrades:student_parent' %}"><b>POWRÓT</b></a>
+            {% elif person == 'teacher' %}
+              <a class="btn btn-outline-dark" href="{%url 'yourgrades:teacher' %}"><b>POWRÓT</b></a>
+            {% endif %}
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+  </body>
+{% endblock %}

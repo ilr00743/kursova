@@ -1,0 +1,28 @@
+{% extends 'yourgrades/base.html' %}
+
+{% block grades%}
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 login my-auto">
+      <form action="{% url 'yourgrades:add_teacher' %}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-6 offset-3">
+            {{form}}
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-4 offset-4">
+            <button type="submit" class="btn btn-outline-secondary text-center"><b>ДОДАТИ ВИКЛАДАЧА</b></button>&nbsp;
+            <a class="btn btn-secondary logout2" href="{%url 'yourgrades:manager' %}">СКАСУВАТИ</a>
+          </div>
+        </div>
+      </form>
+      <br>
+      </div>
+    </div>
+  </div>
+</body>
+{% endblock %}

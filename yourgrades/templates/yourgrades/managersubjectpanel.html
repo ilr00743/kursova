@@ -1,0 +1,162 @@
+{% extends 'yourgrades/base.html' %}
+<head>
+  {% load yourgradestags %}
+</head>
+{% block grades%}
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          {% if exist is True %}
+            <div class="alert alert-warning">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong> Ця дата була введена раніше.</strong>
+            </div>
+          {% endif %}
+            <div class="row">
+              <div class="col-12 ext-center">
+                <br>
+              </div>
+            </div>
+            <br><br>
+            <div class="row">
+              <div class="col-6">
+                <div class="row">
+                  <h3><b>{{subject.name}}</b> у класі: <b>{{class.name}}</b>&nbsp;&nbsp;<a class="btn btn-outline-dark"  onclick="return confirm('Ви впевнені, що хочете видалити цей предмет?')" href="{% url 'yourgrades:del_subject' class.unique_code subject.unique_code %}"> <b>ВИДАЛИТИ ПРЕДМЕТ</b> </a></h3>
+                </div>
+                <br>
+                <div class="row">
+                  <h4>Викладачі:</h4>
+                </div>
+                <br>
+                {% if not teachers%}
+                  <b style="font-size:18px;"> Цей предмет не має вибраних викладачів</b>
+                {% else %}
+                  {% for teacher in teachers %}
+                    <div class="row">
+                      <b style="font-size:20px;">{{teacher}}</b>
+                      <a class="btn btn-link" onclick="return confirm('Ви впевнені, що хочете прибрати цього викладача?')" data-toggle="tooltip" title="Прибрати зі списку викладача цього предмету" href="{% url 'yourgrades:del_subject_teacher' class.unique_code subject.unique_code teacher.user.id %}">
+                        <i class="material-icons align-text-bottom" style="font-size:24px; color: grey"> <b> clear</b> </i>
+                      </a>
+                    </div>
+                    <hr>
+                  {% endfor %}
+                {% endif %}
+                <div class="row">
+                  <a class="btn btn-outline-dark" href="{% url 'yourgrades:add_subject_teacher' class.unique_code subject.unique_code %}"><b> ДОДАТИ ВИКЛАДАЧА ДЛЯ ПРЕДМЕТУ</b></a>
+                </div>
+                <br><br><br>
+                <div class="row">
+                  <div class="col-11">
+                  <div class="row">
+                    <table class="table table-responsive">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col" style="width: 10.0%" >ОЦІНКИ З ПРЕДМЕТУ, ДОДАНІ ВИКЛАДАЧЕМ <br> (не включаючи редагування адміністратора):</th>
+                        </tr>
+                      </thead>
+                      {% for grade in grades %}
+                      <tr>
+                        <th scope="row">
+                          {{grade.date}} {{grade.subject.unique_code}} {{grade.student}} {{grade.student.school_class.unique_code}} {{grade.grade}} / {{grade.weight}} <br>
+                        </th>
+                      </tr>
+                      {% endfor%}
+                    </table>
+                  </div>
+                    <div class="pagination">
+                      <span class="step-links">
+                        {% if grades.has_previous %}
+                          <a href="?page1=1" style="color:black; font-weight: bold;">&laquo; початкова</a>
+                          <a href="?page1={{ grades.previous_page_number }}" style="color:black;">попередня</a>
+                        {% endif %}
+                        <span class="current" style="color:black; font-weight: bold;">
+                          сторінка {{ grades.number }} з {{ grades.paginator.num_pages }}.
+                        </span>
+                        {% if grades.has_next %}
+                          <a href="?page1={{ grades.next_page_number }}" style="color:black font-weight: bold;;">наступна</a>
+                          <a href="?page1={{ grades.paginator.num_pages }}" style="color:black font-weight: bold;;">остання &raquo;</a>
+                        {% endif %}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class="col-6">
+              <div class="row">
+                <h4>РОЗКЛАД ЗАНЯТЬ:</h4>
+              </div>
+              <div class="row">
+                <div class="table-wrap">
+                <table class="table table-responsive">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col" style="width: 10.0%" >Номер заняття</th>
+                      <th scope="col" style="width: 15.0%" >Пн</th>
+                      <th scope="col" style="width: 15.0%" >Вт</th>
+                      <th scope="col" style="width: 15.0%" >Ср</th>
+                      <th scope="col" style="width: 15.0%" >Чт</th>
+                      <th scope="col" style="width: 15.0%" >Пт</th>
+                      <th scope="col" style="width: 15.0%" >Сб</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for lessons in dates %}
+                      <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        {% for day in lessons %}
+                          {% if day is True%}
+                            <div class="col-1 center-block">
+                            <td style="text-align: center !important;">
+                              <i class="material-icons align-text-bottom" style="font-size:25px; ">check_circle</i>
+                              <a class="btn btn-outline-dark" href="{% url 'yourgrades:delete_date' class.unique_code subject.unique_code forloop.counter forloop.parentloop.counter %}" style="font-size:12px;" > usuń </a>
+                            </td>
+                            </div>
+                          {% else %}
+                          <td style="text-align: center !important;">
+                            <i class="material-icons align-text-bottom" style="font-size:15px; ">panorama_fish_eye</i>
+                          </td>
+                          {% endif%}
+                        {% endfor %}
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                </div>
+              </div>
+              <br>
+              <form action="{% url 'yourgrades:subject_view' class.unique_code subject.unique_code %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-6">
+                    <b>{{form.day.label}}</b>{{form.day}}
+                  </div>
+                  <div class="col-6">
+                    <b>{{form.lesson_number.label}}</b>{{form.lesson_number}}
+                  </div>
+                </div>
+                <br>
+                <div class="row center-block">
+                  <div class="col-6">
+                    <button class="btn btn-outline-secondary text-center" type="submit"><b>Ввести дату заняття</b></button>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-6">
+                    <a class="btn btn-outline-secondary text-center" href="{% url 'yourgrades:edit_school_class' class.unique_code %}"> <b>ПОВЕРНУТИСЯ ДО ПАНЕЛІ КЛАСУ</b> </a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  </script>
+{% endblock%}

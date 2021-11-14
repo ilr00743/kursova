@@ -1,0 +1,39 @@
+<head>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'yourgrades/style.css' %}">
+  <link rel="stylesheet" href="{% static 'yourgrades/css/bootstrap.min.css' %}">
+  <script src="{% static 'yourgrades/jquery-3.4.1.js' %}"></script>
+  <script src="{% static 'yourgrades/popper.min.js' %}"></script>
+  <script src="{% static 'yourgrades/js/bootstrap.min.js' %}"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="icon" href="data:,">
+
+  <title>Класний журнал</title>
+</head>
+<body>
+  <header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <span class="col-10">
+        <span><i class="material-icons" style="font-size:35px;"> face </i>  </span>
+        <span class="login" style="font-size:25px;">{{username}}</span>
+      </span>
+      <span class="col-1">
+        <a class="navbar-brand mailbox" href="{% url 'yourgrades:mailbox' %}">
+          <i class="material-icons align-text-bottom" style="font-size:45px;">mail_outline</i>
+          <span style="font-size:22px;"><b>{{unread}}</b></span>
+        </a>
+      </span>
+      <span class="col-1">
+        <a class="navbar-brand logout" href="{% url 'yourgrades:logout' %}" style="font-size:22px;"> <b>Вихід</b>
+          <i class="material-icons align-text-bottom" style="font-size:25px;"> arrow_forward </i>
+        </a>
+      </span>
+    </nav>
+  </header>
+  {%block grades %}
+  {%endblock%}
+</body>

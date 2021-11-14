@@ -1,0 +1,106 @@
+{% extends 'yourgrades/base.html' %}
+
+{% block grades%}
+  <body>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <b style="font-size:20px">ОТРИМАНО:</b><br>
+            <table class="table table-responsive table-dark table-hover">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col" style="width: 10.0%" >ДАТА</th>
+                  <th scope="col" style="width: 10.0%" >ТЕМА</th>
+                  <th scope="col" style="width: 10.0%" >ОТРИМАНО ВІД</th>
+                </tr>
+              </thead>
+            {% for mail in received %}
+              <tr onclick="document.location='{%url 'yourgrades:mail_text' mail.id 1 %}';" style="cursor: pointer;">
+                <th>
+                  {{mail.message.date}}
+                </th>
+                <th>
+                  {% if mail.read == False %}
+                    <b style="color: black;">{{mail.message.subject}}</b>
+                  {% else %}
+                    {{mail.message.subject}}
+                  {% endif %}
+                </th>
+                <th>
+                  {{mail.sender}}
+                </th>
+              </tr>
+            {% endfor %}
+            </table>
+            <div class="pagination">
+              <span class="step-links">
+                {% if received.has_previous %}
+                  <a href="?page2=1">&laquo; початкова</a>
+                  <a href="?page2={{ received.previous_page_number }}">попередня</a>
+                {% endif %}
+                <span class="current">
+                  сторінка {{ received.number }} з {{ received.paginator.num_pages }}.
+                </span>
+                {% if received.has_next %}
+                  <a href="?page2={{ received.next_page_number }}">наступна</a>
+                  <a href="?page2={{ received.paginator.num_pages }}">остання &raquo;</a>
+                {% endif %}
+              </span>
+            </div>
+            <br><br>
+            <b style="font-size:20px">ВІДПРАВЛЕНО:</b><br>
+            <table class="table table-responsive table-dark table-hover">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col" style="width: 10.0%" >ДАТА</th>
+                  <th scope="col" style="width: 10.0%" >ТЕМА</th>
+                  <th scope="col" style="width: 10.0%" >ВІДПРАВЛЕНО КОМУ</th>
+                </tr>
+              </thead>
+              {% for mail in sent %}
+                <tr onclick="document.location='{% url 'yourgrades:mail_text' mail.id 2 %}';" style="cursor: pointer;">
+                  <th>
+                    {{mail.message.date}}
+                  </th>
+                  <th>
+                    {{mail.message.subject}}
+                  </th>
+                  <th>
+                    {{mail.recipient}}
+                  </th>
+                </tr>
+              {% endfor %}
+            </table>
+            <div class="pagination">
+              <span class="step-links">
+                {% if sent.has_previous %}
+                  <a href="?page1=1">&laquo; початкова</a>
+                  <a href="?page1={{ sent.previous_page_number }}">попередня</a>
+                {% endif %}
+                <span class="current">
+                  сторінка {{ sent.number }} з {{ sent.paginator.num_pages }}.
+                </span>
+                {% if sent.has_next %}
+                  <a href="?page1={{ sent.next_page_number }}">наступна</a>
+                  <a href="?page1={{ sent.paginator.num_pages }}">остання &raquo;</a>
+                {% endif %}
+              </span>
+            </div>
+            <br>
+            <div class="row">
+              {% if user_type == 'yourgrades.teacher' %}
+                <a class="btn btn-outline-dark" href="{%url 'yourgrades:teacher' %}"> ПОВЕРНУТИСЯ ДО ПАНЕЛІ ВИКЛАДАЧА </a>
+              {% elif user_type == 'yourgrades.student' %}
+                <a class="btn btn-outline-dark" href="{%url 'yourgrades:student_parent' %}"> ПОВЕРНУТИСЯ ДО ПАНЕЛІ ЗДОБУВАЧА ОСВІТИ </a>
+              {% elif user_type == 'yourgrades.parent' %}
+                <a class="btn btn-outline-dark" href="{%url 'yourgrades:student_parent' %}"> ПОВЕРНУТИСЯ ДО ПАНЕЛІ БАТЬКІВ </a>
+              {% elif user_type == 'yourgrades.manager' %}
+                <a class="btn btn-outline-dark" href="{%url 'yourgrades:manager' %}"> ПОВЕРНУТИСЯ ДО ПАНЕЛІ АДМІНІСТРАТОРА </a>
+              {% endif %}
+            </div>
+            <br>
+          </div>
+        </div>
+      </div>
+  </body>
+{% endblock %}
