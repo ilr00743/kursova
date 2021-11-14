@@ -3,7 +3,7 @@ from .base import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': f'{env("ACC_NAME")}$yourgrades',
+        'NAME': f'{env("ACC_NAME")}$db_gradebook',
         'HOST': f'{env("ACC_NAME")}.mysql.pythonanywhere-services.com',
         'USER': env('ACC_NAME'),
         'PASSWORD': env('DATABASE_PASSWORD'),
