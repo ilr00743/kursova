@@ -1,0 +1,125 @@
+{% extends 'gradesbook/base.html' %}
+
+{% block grades%}
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 login my-auto">
+          <div class="row">
+            {% if current_class.active == True %}
+            <div class="col-2">
+              <h5>КЛАС <b>{{current_class}}</b> (АКТИВНИЙ) </h5>
+              <br>
+            </div>
+              <div class="col-10">
+                <form action="{% url 'gradesbook:deactivation_school_class' current_class.unique_code %}" method="POST">
+                  {% csrf_token %}
+                  <button class="btn btn-outline-secondary " type="submit"><b>ДЕЗАКТИВАЦІЯ</b></button> &nbsp; &nbsp;
+                  <a class="btn btn-outline-secondary" href="{%url 'gradesbook:manager' %}"><b>ПОВЕРНУТИСЯ ДО ПАНЕЛІ АДМІНІСТРАТОРА</b></a>
+                </form>
+              </div>
+            {% else %}
+              <div class="col-2">
+                <h5>КЛАС <b>{{current_class}}</b> (НЕАКТИВНИЙ)</h5>
+                <br>
+              </div>
+              <div class="col-10">
+                <form action="{% url 'gradesbook:activation_school_class' current_class.unique_code %}" method="POST">
+                  {% csrf_token %}
+                  <button class="btn btn-outline-secondary " type="submit"><b>АКТИВАЦІЯ</b></button>
+                  <a class="btn btn-outline-secondary" href="{%url 'gradesbook:manager' %}"><b>Закінчити редагування класу</b></a>
+                </form>
+              </div>
+            {% endif %}
+          </div>
+            <br><br>
+          <div class="row">
+            <div class="col-8">
+              <h3>Список здобувачів освіти:</h3> <br><br>
+              {% for student in students %}
+                <div class="row">
+                  <div class="col-4">
+                    <b style="font-size:20px;">{{forloop.counter}}. {{student}}</b>
+                  </div>
+                  <div class="col-4"><a class="btn btn-secondary" href="{%url 'gradesbook:manager_student' student.user.id %}">інформація про здобувача освіти і оцінки</a></div>
+                  <div class="col-4"><a class="btn btn-secondary" onclick="return confirm('Ви впевнені, що хочете видалити цього здобувача освіти')" href="{%url 'gradesbook:del_student' student.user.id %}">Видалити здобувача освіти</a></div>
+                </div>
+                <br>
+                <div class="row">
+                  {% if student.first_login is not False %}
+                    <div class="col-8">
+                      Перед першим входом<br>
+                      <u>Ім'я користувача</u>: {{student.user.username}} &nbsp; &nbsp; &nbsp;<u>Пароль</u>: {{student.user.username}}123
+                    </div>
+                    <div class="col-4">
+                      <a class="btn btn-secondary" href="{%url 'gradesbook:manager_reset_user' 123 student.user.id %}">Скинути дані для входу</a>
+                    </div>
+                  {% else %}
+                    <div class="col-8">
+                      Після першого входу - персоналізований обліковий запис
+                    </div>
+                    <div class="col-4">
+                      <a class="btn btn-secondary" href="{%url 'gradesbook:manager_reset_user' 123 student.user.id %}">Скинути дані для входу</a>
+                    </div>
+                  {% endif %}
+                </div>
+                <br><hr>
+              {% endfor %}
+              <br><br>
+                <h4>ДОДАТИ НОВОГО УЧНЯ ДО КЛАСУ:</h4><br>
+                <form action="{% url 'gradesbook:edit_school_class' current_class.unique_code %}" method="POST">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col-4">
+                      {{form.name.label}}{{form.name}}<br>
+                      {{form.surname.label}}{{form.surname}}<br>
+                      {{form.birthday.label}}{{form.birthday}}<br>
+                    </div>
+                    <div class="col-4">
+                      <b>Дані одного з батьків:</b><br>
+                      {{form.first_parent_name.label}}{{form.first_parent_name}}<br>
+                      {{form.first_parent_surname.label}}{{form.first_parent_surname}}<br>
+                    </div>
+                    <div class="col-4">
+                      <b>Дані ще одного з батьків (необов'язково):</b><br>
+                      {{form.second_parent_name.label}}{{form.second_parent_name}}<br>
+                      {{form.second_parent_surname.label}}{{form.second_parent_surname}}<br>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <button class="btn btn-outline-secondary" type="submit"><b>ДОДАТИ УЧНЯ ДО КЛАСУ</b></button>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <a class="btn btn-outline-secondary" href="{%url 'gradesbook:manager' %}"><b>ЗАКІНЧИТИ РЕДАГУВАННЯ КЛАСУ</b></a>
+                  </div>
+                </form>
+              <br><br>
+            </div>
+            <div class="col-4">
+              <h4>ПРЕДМЕТИ:</h4><br>
+              <div class="row">
+              {% for subject in subjects %}
+                <div class="col-5">
+                  {{subject}}
+                </div>
+                <div class="col-5">
+                  <a class="btn btn btn-outline-dark" href="{%url 'gradesbook:subject_view' current_class.unique_code subject.unique_code %}">про предмет</a>
+                </div>
+                <div class="col-2">
+                  <a class="btn btn btn-outline-dark" onclick="return confirm('Ви впевнені, що хочете видалити цей предмет?')" href="{%url 'gradesbook:del_subject' current_class.unique_code subject.unique_code %}"> видалити</a>
+                </div>
+                <br><hr>
+              {% endfor %}
+              </div>
+              <br>
+              <a class="btn btn-outline-dark" style="font-size:20px;" href="{%url 'gradesbook:add_subject' current_class.unique_code %}">ДОДАТИ НОВІ ПРЕДМЕТИ</a>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+  </body>
+{% endblock %}

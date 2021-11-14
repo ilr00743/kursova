@@ -1,0 +1,151 @@
+{% extends 'gradesbook/base.html' %}
+<head>
+  {% load gradesbooktags %}
+</head>
+{% block grades%}
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          
+          <div class="row">
+            <div class="col-5">
+              <h3>АКТИВНІ КЛАСИ:</h3>
+              <br>
+              {% for class in classes %}
+                <div class="row">
+                  <span>
+                    <b style="font-size:25px;">{{class}}</b>
+                    <i class="material-icons align-text-bottom" style="font-size:23px;">person</i>{% with temp=students|key_value:class%} {% elements_number temp %}{% endwith %}
+                  </span>
+                  <span style=" margin-left:10px;">
+                    <a class="btn btn-secondary" href="{% url 'gradesbook:edit_school_class' class.unique_code %}">РЕДАГУВАТИ КЛАС</a>
+                    <a class="btn btn-secondary" data-toggle="tooltip" title="Надіслати повідомлення здобувачам освіти" href="{%url 'gradesbook:create_message' 1 class.unique_code %}"><i class="material-icons align-text-bottom" style="font-size:25px;">mail</i></a>
+                    <a class="btn btn-secondary" data-toggle="tooltip" title="Надіслати повідомлення батькам" href="{%url 'gradesbook:create_message' 2 class.unique_code %}"><i class="material-icons align-text-bottom" style="font-size:25px; color:#FED65E;">mail</i></a>
+                  </span>
+                </div>
+                <hr>
+              {% endfor %}
+              <br>
+              <br>
+              <span id="mclasses"></span>
+              <a class="btn btn btn-outline-dark" id="classes" href="{%url 'gradesbook:create_school_class' %}"><b>ДОДАТИ НОВИЙ КЛАС</b></a>
+              <br><br>
+              {% if ia_classes is not None %}
+                <script>
+                  window.location.hash = '#mclasses';
+                </script>
+                <form action="{%url 'gradesbook:manager' %}" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="inactive_class" value='off'>
+                  <button class="btn btn-outline-secondary text-center" type="submit"><b>ПРИХОВАТИ НЕАКТИВНІ КЛАСИ</b></button>
+                </form>
+                {% for class in ia_classes %}
+                  <div class="row">
+                    <b>{{class.name}} ({{class.unique_code}}) </b> &nbsp;&nbsp;
+                    <a class="btn btn-secondary" href="{% url 'gradesbook:edit_school_class' class.unique_code %}">РЕДАГУВАТИ КЛАС</a>
+                  </div>
+                  <br>
+                {% endfor %}
+              {% else %}
+                <form action="{%url 'gradesbook:manager' %}" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="inactive_class" value='on'>
+                  <button class="btn btn btn-outline-dark text-center" type="submit"><b>ПОКАЗАТИ НЕАКТИВНІ КЛАСИ</b></button>
+                </form>
+              {% endif %}
+            </div>
+            <div class="col-7">
+              <h3> ВИКЛАДАЧІ: </h3>
+              <br>
+              {% for teacher in teachers %}
+                <div class="row">
+                  <div class="col-5">
+                    <b style="font-size:20px;">{{teacher}}</b>
+                  </div>
+                  <div class="col-2 ">
+                    <a class="btn btn-secondary" data-toggle="tooltip" title="Надіслати повідомлення викладачу" href="{% url 'gradesbook:create_message' 7 teacher.user.id %}"><i class="material-icons align-text-bottom" style="font-size:25px; color: #F7E2FE">mail</i></a>
+                  </div>
+                  <div class="col-4">
+                    <a class="btn btn-secondary" style="font-size:14px;" href="{% url 'gradesbook:manager_teacher' teacher.user.id %}"> інформація та редагування</a>
+                  </div>
+                  <div class="col-1">
+                    <a class="btn btn-secondary" style="font-size:14px;" href="{% url 'gradesbook:deactivation_teacher' teacher.user.id %}">деактивувати</a>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  {% if teacher.first_login is True %}
+                    <div class="col-8">
+                      <i class="material-icons align-text-bottom" style="font-size:20px;">close</i>
+                      Ніразу не здійснив вхід<br>
+                      ім'я користувача: {{teacher.user.username}}<br>
+                      пароль: {{teacher.user.username}}234
+                    </div>
+                    <div class="col-4">
+                      <a class="btn btn btn-outline-dark" style="font-size:14px;" href="{%url 'gradesbook:manager_reset_user' 234 teacher.user.id %}">Скинути дані для входу</a>
+                    </div>
+                  {% else %}
+                    <div class="col-8">
+                      <i class="material-icons align-text-bottom" style="font-size:20px;">check</i>
+                      Здійснив перший вхід - було персоналізовано обліковий запис
+                    </div>
+                    <div class="col-4">
+                      <a class="btn btn btn-outline-dark" style="font-size:14px;" href="{%url 'gradesbook:manager_reset_user' 234 teacher.user.id %}">Скинути дані для входу</a>
+                    </div>
+                  {% endif %}
+                </div>
+                <br>
+                <hr>
+              {% endfor %}
+              <br>
+              <div class="row" id="teachers">
+                <a class="btn btn-outline-dark" href="{% url 'gradesbook:add_teacher' %}"><b>ДОДАТИ ВИКЛАДАЧА</b></a> <br>
+              </div>
+              <br>
+              {% if ia_teachers is not None %}
+                <script>
+                  window.location.hash = '#teachers';
+                </script>
+                <div class="row">
+                  <form action="{%url 'gradesbook:manager' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="inactive_teachers" value='off'>
+                    <button class="btn btn-outline-secondary text-center" type="submit"><b>ПРИХОВАТИ НЕАКТИВНИХ ВЧИТЕЛІВ</b></button>
+                  </form>
+                </div>
+                <br>
+                <div class="row">
+                  {% for teacher in ia_teachers %}
+                    <div class="col-5">
+                      <b>{{teacher}}</b>
+                    </div>
+                    <div class="col-7">
+                      <div class="row">
+                      <a class="btn btn-secondary" style="font_size: 14px;" href="{% url 'gradesbook:activation_teacher' teacher.user.id %}"> <span style="font-size: 16px;">АКТИВУВАТИ ВИКЛАДАЧА</span></a>
+                      </div>
+                      <br>
+                    </div>
+                  {% endfor %}
+                </div>
+              {% else %}
+                <div class="row">
+                  <form action="{% url 'gradesbook:manager' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="inactive_teachers" value='on'>
+                    <button class="btn btn btn-outline-dark text-center" type="submit"><b>ВІДОБРАЗИТИ НЕАКТИВНИХ ВИКЛАДАЧІВ</b></button>
+                  </form>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  </script>
+{% endblock %}

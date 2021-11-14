@@ -1,0 +1,32 @@
+{% extends 'gradesbook/base.html' %}
+
+{% block grades %}
+  <body>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-10 offset-1 mailsubject">
+                <h4>{{mailbox.message.subject}}</h4>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-10 offset-1 mailtext">
+                <div class="row">
+                  {{mailbox.message.text}}
+                </div>
+                <br>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-10 offset-1 ">
+                <a class="btn btn-outline-dark"href="{%url 'gradesbook:mailbox' %}">ПОВЕРНУТИСЯ ДО СКРИНЬКИ</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </body>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'gradesbook/base.html' %}
+
+{% block grades%}
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          {% if shortcut_error is not None %}
+            <div class="alert alert-warning">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong> Це скорочення вже використовується у цьому класі. Введіть унікальне значення. </strong>
+            </div>
+          {% endif %}
+          <form action="{%url 'gradesbook:add_subject' class_unique_code %}" method="POST">
+            {% csrf_token %}
+            <br>
+            <div class="row">
+              <div class="col-7">
+                <div class="row">
+                  <div class="col-10">
+                    {{form.name.label}} {{form.name}}&nbsp;
+                    {{form.shortcut.label}} {{form.shortcut}}
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-12">
+                    <button class="btn btn-outline-secondary text-center" type="submit"><b>СТВОРИТИ НАВЧАЛЬНИЙ ПРЕДМЕТ</b></button>&nbsp;
+                    <a class="btn btn-secondary logout2" href="{% url 'gradesbook:edit_school_class' class_unique_code %}">СКАСУВАТИ І ПОВЕРНУТИСЯ ДО ПАНЕЛІ КЛАСУ</a>
+                </div>
+                </div>
+              </div>
+              <div class="col-5">
+                <div class="row">
+                  <h5>{{form.teachers.label}}:</h5>
+                </div>
+                  {% for teacher in form.teachers %}
+                    {{teacher}}<br>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <br>
+          </form>
+          <br>
+        </div>
+      </div>
+    </div>
+  </body>
+{% endblock %}

@@ -1,0 +1,108 @@
+<head>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'gradesbook/style.css' %}">
+  <link rel="stylesheet" href="{% static 'gradesbook/css/bootstrap.min.css' %}">
+  <script src="{% static 'gradesbook/jquery-3.4.1.js' %}"></script>
+  <script src="{% static 'gradesbook/popper.min.js' %}"></script>
+  <script src="{% static 'gradesbook/js/bootstrap.min.js' %}"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="icon" href="data:,">
+
+  <title>Класний журнал</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row h-100">
+      <div class="col-sm-12 login my-auto">
+        {% if wrong_password is not None %}
+          <div class="alert alert-warning">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong> Неправильно введений пароль!</strong>
+          </div>
+        {% endif %}
+        {% if user_no_exist is not None %}
+          <div class="alert alert-warning">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong> Користувача з таким ніком не існує!</strong>
+          </div>
+        {% endif %}
+        <div class="row" style="padding-bottom: 4%;">
+          <div class="col" style="text-align: center !important;">
+              <img src="{% static 'gradesbook/img/book.png' %}" class="rounded" width="315" height="175">
+            </div>
+        </div>
+        <form id={{student.0.user.id}} action="{% url 'gradesbook:homepage' %}" method="POST">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-sm-4 offset-4 form-group form-inline">
+               <div class="col-3">
+                <b style="font-size:20px;">{{form.username.label}}</b>
+               </div>
+               <div class="col-9">
+                {{form.username}}
+               </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4 offset-4 form-group form-inline">
+              <div class="col-3">
+                <b style="font-size:20px;">{{form.password.label}}</b>
+              </div>
+              <div class="col-9">
+                {{form.password}}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2 offset-5" style="text-align: center !important;">
+              <br>
+              <button type="submit" class="btn btn-outline-secondary text-center"><b>ВХІД</b></button>
+            </div>
+          </div>
+          <br><br><br><br>
+          <div class="col" style="text-align: center !important;">
+            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#getinfo"><b style="font-size: 12px;">i</b></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal " id="getinfo" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="alert alert-secondary alert-dismissible">
+        <a  class="close" data-dismiss="modal" aria-label="close">&times;</a>
+          <b>Добрий день!</b><br>
+          Ви можете увіти у журнал як один з наступних типів користувачів:<br><br>
+        <b>1.</b> Адміністратор <br>
+        <b>2.</b> Викладач <br>
+        <b>3.</b> Здобувач освіти <br>
+        <br>
+
+        <b>Можливості адміністратора:</b><br>
+        - створювати нових користувачів;<br>
+        - активувати/деактивувати/видаляти класи/викладачів;<br>
+        - створювати предмети для класу, приєднувати до предмету викладач;<br>
+        - вказувати дати уроків для певних предметів;<br>
+        - відправляти повідомлення певним здобувачам освіти, викладачам, класам;<br>
+        - редагувати особисті дані користувачів і скидати дані для входу;<br>
+        - переглядати історію оцінок викладачів.<br>
+        <hr>
+
+        <b>Можливості викладача:</b><br>
+        - вводити оцінки з навчальних предметів;<br>
+        - відправляти повідомлення здобувачам освіти, цілим класам і адміністратор;<br>
+        - побачити розклад занять.<br>
+        <hr>
+
+        <b>Можливості здобувача освіти:</b><br>
+        - переглядати отримані оцінки;<br>
+        - переглядати розклад занять;<br>
+        - відправляти повідомлення викладачам певного предмет та адміністратору.<br>
+        <br>
+      </div>
+    </div>
+  </div>
+</body>

@@ -1,0 +1,61 @@
+{% extends 'gradesbook/base.html' %}
+
+{% block grades%}
+  <body>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-5">
+                <span style="font-size:18px;">Викладач</span> <b style="font-size:28px;">{{teacher}}</b>
+              </div>
+              <div class="col-4">
+                <a class="btn btn-outline-dark" href="{%url 'gradesbook:manager_teacher_edit' teacher.user.id %}">РЕДАГУВАТИ ПЕРСОНАЛЬНІ ДАНІ <i class="material-icons align-text-bottom" style="font-size:24px; color: grey"> <b> person </b> </i></a>
+              </div>
+              <div class="col-3">
+                <a class="btn btn-outline-dark" href="{% url 'gradesbook:manager_del_teacher' teacher.user.id %}" onclick="return confirm('Ви впевнені, що хочете видалити цього викладача')"> ВИДАЛИТИ ВИКЛАДАЧА <i class="material-icons align-text-bottom" style="font-size:24px; color: grey"> <b> remove_circle </b> </i></a>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-12">
+                <table class="table table-responsive" style="text-align: center;">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col" style="width: 10.0%" >ПРЕДМЕТ </th>
+                      <th scope="col" style="width: 10.0%" >КЛАС </th>
+                      <th scope="col" style="width: 10.0%" ></th>
+                    </tr>
+                  </thead>
+                  {% if not subjects %}
+                    <tr>
+                      <th>
+                        <b>Цей викладач не прив'язаний до жодного предмету</b><br>
+                      </th>
+                    </tr>
+                  {% else %}
+                    {% for subject in subjects %}
+                      <tr>
+                        <th onclick="document.location='{% url 'gradesbook:subject_view' subject.school_class.unique_code subject.unique_code %}';" style="cursor: pointer;" class="message_cell align-middle">
+                          <b style="color: black">{{subject.name}}</b>
+                        </th>
+                        <th onclick="document.location='{% url 'gradesbook:edit_school_class' subject.school_class.unique_code %}';" style="cursor: pointer;" class="message_cell align-middle">
+                          <b style="color: black">{{subject.school_class}}</b>
+                        </th>
+                        <th style="cursor: pointer;" class="message_cell align-middle">
+                          <a class="btn btn-link" href="{% url 'gradesbook:del_subject_teacher' subject.school_class.unique_code subject.unique_code teacher.user.id %}" onclick="return confirm('Ви впевнені, що хочете усунути викладача від цього предмету?')"> <b style="color: black">УСУНУТИ ВИКЛАДАЧА ВІД ПРЕДМЕТУ</b></a><br>
+                        </th>
+                      </tr>
+                    {% endfor %}
+                  {% endif %}
+                </table>
+              </div>
+            </div>
+              <br>
+              <br>
+              <a class="btn btn-outline-dark" href="{%url 'gradesbook:manager' %}">ПОВЕРНУТИСЯ ДО ПАНЕЛІ АДМІНІСТРАТОРА</a>
+          </div>
+        </div>
+      </div>
+  </body>
+{% endblock %}

@@ -17,7 +17,7 @@ SECRET_KEY = env('SECRET_KEY')
 # Application definition
 
 INSTALLED_APPS = [
-    'yourgrades.apps.YourgradesConfig',
+    'gradesbook.apps.GradebookConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
