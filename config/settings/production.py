@@ -3,13 +3,13 @@ from .base import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': f'{env("ACC_NAME")}$db_gradebook',
-        'HOST': f'{env("ACC_NAME")}.mysql.pythonanywhere-services.com',
-        'USER': env('ACC_NAME'),
+        'NAME': 'illiaR$db_gradebook',
+        'HOST': 'illiaR.mysql.pythonanywhere-services.com',
+        'USER': 'illiaR',
         'PASSWORD': env('DATABASE_PASSWORD'),
     }
 }
 
-ALLOWED_HOSTS = [f'{env("ACC_NAME")}.pythonanywhere.com']
-STATIC_ROOT = f'/home/{env("ACC_NAME")}/static/'
+ALLOWED_HOSTS = ['illiaR.pythonanywhere.com']
+STATIC_ROOT = '/home/illiaR/static/'
 DEBUG = False
