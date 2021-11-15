@@ -6,7 +6,7 @@ DATABASES = {
         'NAME': 'illiaR$db_gradebook',
         'HOST': 'illiaR.mysql.pythonanywhere-services.com',
         'USER': 'illiaR',
-        'PASSWORD': env('DATABASE_PASSWORD'),
+        'PASSWORD': '1agbdlcid!',
     }
 }
 
