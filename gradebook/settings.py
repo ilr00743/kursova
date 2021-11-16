@@ -6,6 +6,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'gfq8egfiug7jGUYWG8OGGAFhjgyvef7youi2-042=riej'
 
+DEBUG = False
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -97,7 +99,7 @@ DATABASES = {
 
 ALLOWED_HOSTS = ['*']
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-DEBUG = False
+
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
