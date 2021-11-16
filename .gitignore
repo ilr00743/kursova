@@ -1,6 +1,6 @@
 venv
 */venv
 gradebook/__pycache__
-yourgrades/__pycache__
+gradesbook/__pycache__
 */__pycache__
 **/__pycache__
