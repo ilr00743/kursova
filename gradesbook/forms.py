@@ -57,7 +57,7 @@ class CreateStudentForm(forms.Form):
     )
     birthday = forms.DateField(
         label='Дата народження:',
-        widget=forms.DateInput(
+        widget=forms.SelectDateWidget(
             attrs={
                 'class': 'form-control'
             }
