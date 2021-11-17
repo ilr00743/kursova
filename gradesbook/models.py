@@ -11,7 +11,7 @@ class SchoolClass(models.Model):
         unique=True,
         max_length=10,
         validators=[RegexValidator(r'^[1-9]{1}[а-я]{1}[0-9]{4}$')],
-        help_text='Формат: назва класу + рік навчання, наприклад: 1b2019'
+        help_text='Формат: назва класу + рік навчання, наприклад: 1а2019'
     )
     name = models.CharField(
         max_length=10,
@@ -73,8 +73,8 @@ class Subject(models.Model):
     name = models.CharField(max_length=128)
     unique_code = models.CharField(
         unique=True,
-        max_length=8,
-        help_text='Формат: скорочена назва предмему + назва класу і їхній рік, наприклад : Hi2c2019'
+        max_length=13,
+        help_text='Формат: скорочена назва предмему + назва класу і їхній рік, наприклад : ЧМ2а2019'
     )
     school_class = models.ForeignKey(SchoolClass, on_delete=models.CASCADE)
 

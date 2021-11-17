@@ -144,9 +144,9 @@ class CreateSubjectForm(forms.Form):
         )
     )
     shortcut = forms.CharField(
-        max_length=2,
+        max_length=4,
         label='Скорочена назва',
-        help_text='Скорочена назва предмету з двох букв',
+        help_text='Скорочена назва предмету з 2-4 букв',
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'наприклад, ЧМ',
