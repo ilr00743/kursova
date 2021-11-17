@@ -28,7 +28,7 @@ class SchoolClassForm(forms.ModelForm):
         model = SchoolClass
         fields = ['name', 'year', 'unique_code']
         labels = {
-            'name': 'назва класу',
+            'name': 'назва класу(1-9, лише одна літера)',
             'unique_code': 'код класу',
             'year': 'рік навчання'
         }
