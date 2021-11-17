@@ -138,7 +138,7 @@ class CreateSubjectForm(forms.Form):
         label='Назва',
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Введіть назву',
+                'placeholder': 'наприклад, Чисельні методи',
                 'class': 'form-control'
             }
         )
@@ -149,7 +149,7 @@ class CreateSubjectForm(forms.Form):
         help_text='Скорочена назва предмету з двох букв',
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Введіть скорочення',
+                'placeholder': 'наприклад, ЧМ',
                 'class': 'form-control'
             }
         )
@@ -248,7 +248,7 @@ class FirstLoginForm(forms.Form):
         min_length=5,
         widget=forms.PasswordInput(
             attrs={
-                'placeholder': 'підтвердження',
+                'placeholder': 'Підтвердження',
                 'class': 'form-control'
             }
         )
