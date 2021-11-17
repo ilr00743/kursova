@@ -59,7 +59,7 @@ class CreateStudentForm(forms.Form):
     birthday = forms.DateField(
         label='Дата народження:',
         widget=forms.SelectDateWidget(
-            years=range(1900,2200),
+            years=range(1900,2100),
             attrs={
                 'class': 'form-control'
             }
