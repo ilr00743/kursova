@@ -20,7 +20,7 @@
             </div>
             <br><br>
             <div class="row">
-              <div class="col-10">
+              <div class="col-6">
                 <div class="row">
                   <h3><b>{{subject.name}}</b> у класі: <b>{{class.name}}</b>&nbsp;&nbsp;<a class="btn btn-outline-dark"  onclick="return confirm('Ви впевнені, що хочете видалити цей предмет?')" href="{% url 'gradesbook:del_subject' class.unique_code subject.unique_code %}"> <b>ВИДАЛИТИ ПРЕДМЕТ</b> </a></h3>
                 </div>
@@ -152,7 +152,7 @@
                     </div>
                 </div>
               </div>
-            <div class="col-8">
+            <div class="col-6">
               <div class="row">
                 <h4>РОЗКЛАД ЗАНЯТЬ:</h4>
               </div>
@@ -161,13 +161,13 @@
                 <table class="table table-responsive">
                   <thead class="thead-dark">
                     <tr>
-                      <th scope="col" style="width: 10.0% text-align: center !important" >№ заняття</th>
-                      <th scope="col" style="width: 15.0% text-align: center !important" >Пн</th>
-                      <th scope="col" style="width: 15.0% text-align: center !important" >Вт</th>
-                      <th scope="col" style="width: 15.0% text-align: center !important" >Ср</th>
-                      <th scope="col" style="width: 15.0% text-align: center !important" >Чт</th>
-                      <th scope="col" style="width: 15.0% text-align: center !important" >Пт</th>
-                      <th scope="col" style="width: 15.0% text-align: center !important" >Сб</th>
+                      <th scope="col" style="width: 10.0% text-align: center" >№ заняття</th>
+                      <th scope="col" style="width: 15.0% text-align: center" >Пн</th>
+                      <th scope="col" style="width: 15.0% text-align: center" >Вт</th>
+                      <th scope="col" style="width: 15.0% text-align: center" >Ср</th>
+                      <th scope="col" style="width: 15.0% text-align: center" >Чт</th>
+                      <th scope="col" style="width: 15.0% text-align: center" >Пт</th>
+                      <th scope="col" style="width: 15.0% text-align: center" >Сб</th>
                     </tr>
                   </thead>
                   <tbody>
