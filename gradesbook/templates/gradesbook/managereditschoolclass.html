@@ -48,7 +48,7 @@
                 <div class="row">
                   {% if student.first_login is not False %}
                     <div class="col-8">
-                      Перед першим входом<br>
+                      Не здійснив вхід<br>
                       <u>Ім'я користувача</u>: {{student.user.username}} &nbsp; &nbsp; &nbsp;<u>Пароль</u>: {{student.user.username}}123
                     </div>
                     <div class="col-4">
@@ -56,7 +56,7 @@
                     </div>
                   {% else %}
                     <div class="col-8">
-                      Після першого входу - персоналізований обліковий запис
+                      Здійснив перший вхід - персоналізовано обліковий запис
                     </div>
                     <div class="col-4">
                       <a class="btn btn-secondary" href="{%url 'gradesbook:manager_reset_user' 123 student.user.id %}">Скинути дані для входу</a>
