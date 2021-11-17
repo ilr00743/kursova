@@ -21,7 +21,7 @@
                 </th>
                 <th>
                   {% if mail.read == False %}
-                    <b style="color: black;">{{mail.message.subject}}</b>
+                    <b style="color: orange;">{{mail.message.subject}}</b>
                   {% else %}
                     {{mail.message.subject}}
                   {% endif %}
