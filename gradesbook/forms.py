@@ -1,5 +1,6 @@
 from django import forms
 from django.core.validators import RegexValidator
+from django.forms.widgets import SelectDateWidget
 from .models import *
 
 
@@ -58,6 +59,7 @@ class CreateStudentForm(forms.Form):
     birthday = forms.DateField(
         label='Дата народження:',
         widget=forms.SelectDateWidget(
+            years=range(1900,2200),
             attrs={
                 'class': 'form-control'
             }
