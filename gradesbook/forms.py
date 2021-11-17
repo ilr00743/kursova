@@ -8,7 +8,7 @@ class SchoolClassForm(forms.ModelForm):
         super(SchoolClassForm, self).__init__(*args, **kwargs)
         self.fields['unique_code'].widget = forms.HiddenInput()
         self.fields['name'].widget = forms.TextInput(
-            attrs={'placeholder': 'наприклад, 1a', 'class': 'form-control input-sm'}
+            attrs={'placeholder': 'наприклад, 3в', 'class': 'form-control input-sm'}
         )
         self.fields['year'].widget = forms.NumberInput(
             attrs={
